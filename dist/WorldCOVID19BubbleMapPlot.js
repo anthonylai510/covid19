@@ -294,7 +294,7 @@ function makePlot(err, rows, tday)
 		  },
 		  title: {
 					//text: '<b>COVID-19 Global Confirmed Cases on ' + today + ' (by Anthony Lai)<br>Total Confirmed: ' + arrcityCasesSum + '</b>', 
-					text: '<b>Total Confirmed: ' + arrcityCasesSum + '</b>', 
+					text: '<b>Total Confirmed: ' + arrcityCasesSum.toLocaleString('en-US') + '</b>', 
 					font: {
 					  family: 'Courier New, monospace',
 					  size: 22,
