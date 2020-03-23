@@ -66,8 +66,10 @@ function makePlot(err, rows, strdate)
 			cityLon = unpack(rows, 'Longitude'),
 			hoverText = [];
 		
-		//calculate the Total Confirmed Cases
+		//calculate the Total Confirmed Cases and Total Deaths Cases
 		const arrcityCasesSum = cityCases.reduce(getSum, 0);
+		const arrcityDeathsSum = cityDeaths.reduce(getSum, 0);
+
 		//console.log(arrcityCasesSum);
 		
 		//prepare for hover text for each city in a country or just country
@@ -240,7 +242,8 @@ function makePlot(err, rows, strdate)
 			};
 
 
-		var layout = {
+		var layout = 
+		{
 		  geo: {
 			showland: true, 
 			showlakes: true, 
@@ -275,27 +278,79 @@ function makePlot(err, rows, strdate)
 			orientation: "h"
 		  },
 		  title: {
-					//text: '<b><font size="5">COVID-19 Global Confirmed Cases on ' + strdate + ' (by Anthony Lai)</font></b><br>' + '<b>Total Confirmed: ' + arrcityCasesSum.toLocaleString('en-US') + '</b>', 
-					text: '<b>COVID-19 Global Confirmed Cases on ' + strdate + ' (by Anthony Lai)</b><br>' + '<b>Total Confirmed: ' + arrcityCasesSum.toLocaleString('en-US') + '</b>', 
-					
-					font: {
-					  family: 'Courier New, monospace',
-					  size: 22,
-					  color: 'red'
-					},
-					xref: 'paper',
-					x: 1.05,
-				  },
+			text: '<b>COVID-19 Global Confirmed Cases on ' + strdate + ' (by Anthony Lai)</b><br>' + '<b>Total Confirmed: ' + arrcityCasesSum.toLocaleString('en-US') + '</b>' + '      <b>Total Deaths: ' + arrcityDeathsSum.toLocaleString('en-US') + '</b>',
+			font: {
+			  family: 'Courier New, monospace',
+			  size: 22,
+			  color: 'red'
+			},
+			xref: 'paper',
+			x: 1.05,
+		  },
 		  hovermode: 'closest',
-		  height: 610
-		  //height: "auto"
-
+		  height: 610,
+		  
+		  updatemenus: [
+			{
+				//An update button to update the geo: scope
+				buttons: [
+				{
+					args: [{geo: { scope: ''}}],
+					label: 'Update',
+					method: 'update'
+				},
+				],
+				showactive: true,
+				type: 'buttons',
+				x: 0.095,
+				y: 1.10,
+				xref: 'paper',
+				yref: 'paper',
+				yanchor: 'auto',
+				font: {color: '#5072a8'}
+			},
+			//A set of dropdown button to change geo: scope
+			{
+				x: 0.015,
+				y: 1.10,
+				xref: 'paper',
+				yref: 'paper',
+				yanchor: 'auto',
+				active: 0,
+				showactive: true,
+				buttons: [
+				{
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'world', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'World',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'usa', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'USA',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'europe', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'Europe',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'asia', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'Asia',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'africa', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'Africa',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'north america', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'North America',
+					method: 'relayout',
+				}, {
+					args: [{geo: { showland: true, showlakes: true, showocean: true, scope: 'south america', showrivers: true, showcountries: true, landcolor: 'lightgray', oceancolor: '#e8f4f8'}}],
+					label: 'South America',
+					method: 'relayout',
+				}]
+			}]
 		};
 		
-		//var h2 = document.getElementById('myh2');
-		
-		//h2.innerHTML  = '<b><font size="5">COVID-19 Global Confirmed Cases on ' + strdate + ' (by Anthony Lai)</font></b>';
-		//h2.align = 'center';
 		
 		var config = {responsive: true, displayModeBar: false}; //hide the plotly menubar
 		
