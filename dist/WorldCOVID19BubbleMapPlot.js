@@ -3,8 +3,17 @@ var strdate = getOffsetDate(0, "mm-dd-yyyy");
 //console.log(strdate);
 
 var valuesGroupByColumn;
-const groupByColumn = "Country/Region";
+//nst groupByColumn = "Country/Region";
+//nst aggType = "sum";
+
+const strCityColName = 'Province_State';
+const strCountryColName = 'Country_Region';
+const strLongColName = 'Long_';
+const strLatColName = 'Lat';
+
+const groupByColumn = strCountryColName;
 const aggType = "sum";
+
 
 //download csv source data and then make scattergeo plot and generate jexcel table
 Plotly.d3.csv(
@@ -57,13 +66,22 @@ function makePlot(err, rows, strdate)
 
 
 		
-		var cityName = unpack(rows, 'Province/State'),
+/* 		var cityName = unpack(rows, 'Province/State'),
 			countryName = unpack(rows, 'Country/Region'),
 			cityCases = unpack(rows, 'Confirmed'),
 			cityDeaths = unpack(rows, 'Deaths'),
 			cityRecovered = unpack(rows, 'Recovered'),
 			cityLat = unpack(rows, 'Latitude'),
 			cityLon = unpack(rows, 'Longitude'),
+			hoverText = []; */
+			
+		var cityName = unpack(rows, strCityColName),
+			countryName = unpack(rows, strCountryColName),
+			cityCases = unpack(rows, 'Confirmed'),
+			cityDeaths = unpack(rows, 'Deaths'),
+			cityRecovered = unpack(rows, 'Recovered'),
+			cityLat = unpack(rows, strLatColName),
+			cityLon = unpack(rows, strLongColName),
 			hoverText = [];
 		
 		//calculate the Total Confirmed Cases and Total Deaths Cases
