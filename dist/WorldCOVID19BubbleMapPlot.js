@@ -93,10 +93,11 @@ function makePlot(err, rows, strdate)
 		//prepare for hover text for each city in a country or just country
 		for ( var i = 0 ; i < cityCases.length; i++) {
 			var currentText = "";
+			var cityActive = cityCases[i] - cityDeaths[i] - cityRecovered[i]
 			if(cityName[i] == "")
-				currentText = countryName[i] + "<br>Confirmed: " + cityCases[i] + "<br>Deaths: " + cityDeaths[i] + "<br>Recovered: " + cityRecovered[i];
+				currentText = countryName[i] + "<br>Confirmed: " + cityCases[i] + "<br>Deaths: " + cityDeaths[i] + "<br>Recovered: " + cityRecovered[i] + "<br>Active: " + cityActive;
 			else
-				currentText = cityName[i] + ", " + countryName[i] + "<br>Confirmed: " + cityCases[i] + "<br>Deaths: " + cityDeaths[i] + "<br>Recovered: " + cityRecovered[i];
+				currentText = cityName[i] + ", " + countryName[i] + "<br>Confirmed: " + cityCases[i] + "<br>Deaths: " + cityDeaths[i] + "<br>Recovered: " + cityRecovered[i] + "<br>Active: " + cityActive;
 			hoverText.push(currentText);
 		}
 
@@ -408,7 +409,8 @@ function groupByData(data, groupByColumn, aggType)
 			tmp["Confirmed"] = rows[key].value['Confirmed'];
 			tmp["Deaths"] = rows[key].value['Deaths'];
 			tmp["Recovered"] = rows[key].value['Recovered'];
-			console.log(tmp)
+			tmp["Active"] = tmp["Confirmed"] - tmp["Deaths"] - tmp["Recovered"];
+			//console.log(tmp)
 			newData.push(tmp);
 		} 
 	}
@@ -428,7 +430,7 @@ function groupByData(data, groupByColumn, aggType)
 function makeTable(rows)
 {
 	console.log("Before create jexcel table");
-	console.log(valuesGroupByColumn);
+	//console.log(valuesGroupByColumn);
 	jexcel(document.getElementById('myTable'), {
 		data: valuesGroupByColumn,
 		csvHeaders: true,
@@ -439,6 +441,7 @@ function makeTable(rows)
 			{ type:'text', width:150, title:'Confirmed'},
 			{ type:'text', width:150, title:'Deaths'},
 			{ type:'text', width:150, title:'Recovered'},
+			{ type:'text', width:150, title:'Active'},
 		 ]
 	});
 }
