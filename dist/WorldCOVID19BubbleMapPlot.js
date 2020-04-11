@@ -101,10 +101,46 @@ function makePlot(err, rows, strdate)
 			hoverText.push(currentText);
 		}
 
-		//trace1: Confirmed Cases > 10,000
+		//trace1: Confirmed Cases > 100,000
+		var trace0 = 
+			{
+				name: 'Confirmed > 100,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(40, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 20 // size ref for value > 100,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 100000
+				  }
+				]
+			};
+
+		//trace1: 10,000 < Confirmed Cases <= 100,000
 		var trace1 = 
 			{
-				name: 'Confirmed > 10,000',
+				name: '10,000 < Confirmed <= 100,000',
 				type: "scattergeo",
 				mode: 'markers',
 				hoverinfo: 'text',
@@ -129,6 +165,11 @@ function makePlot(err, rows, strdate)
 					sizeref: 10 // size ref for value > 10,000
 				},
 				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '<=',
+					value: 100000
+				  },
 				  {	type: 'filter',
 					target: cityCases,
 					operation: '>',
@@ -321,7 +362,7 @@ function makePlot(err, rows, strdate)
 				],
 				showactive: true,
 				type: 'buttons',
-				x: 0.095,
+				x: 0.0002,
 				y: 1.10,
 				xref: 'paper',
 				yref: 'paper',
@@ -330,8 +371,8 @@ function makePlot(err, rows, strdate)
 			},
 			//A set of dropdown button to change geo: scope
 			{
-				x: 0.015,
-				y: 1.10,
+				x: 0.0002,
+				y: 1.010,
 				xref: 'paper',
 				yref: 'paper',
 				yanchor: 'auto',
@@ -373,9 +414,10 @@ function makePlot(err, rows, strdate)
 		
 		var config = {responsive: true, displayModeBar: false}; //hide the plotly menubar
 		
-		var data = [trace1, trace2, trace3, trace4];
-
+		var data = [trace0, trace1, trace2, trace3, trace4];
+		
 		Plotly.newPlot("myDiv", data, layout, config);
+		
 };
 
 
