@@ -126,7 +126,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: cityCases,
 					sizemode: "area",
-					sizeref: 20 // size ref for value > 100,000
+					sizeref: 40 // size ref for value > 100,000
 				},
 				transforms: [
 				  {	type: 'filter',
@@ -163,7 +163,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: cityCases,
 					sizemode: "area",
-					sizeref: 15 // size ref for 50,000 < value <= 100,000
+					sizeref: 35 // size ref for 50,000 < value <= 100,000
 				},
 				transforms: [
 				  {	type: 'filter',
@@ -204,7 +204,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: cityCases,
 					sizemode: "area",
-					sizeref: 10 // size ref for 10,000 < value <= 50,000
+					sizeref: 30 // size ref for 10,000 < value <= 50,000
 				},
 				transforms: [
 				  {	type: 'filter',
@@ -244,7 +244,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: unpack(rows, 'Confirmed'),
 					sizemode: "area",
-					sizeref: 6 // size ref for 1,000 < value <= 10,000
+					sizeref: 18 // size ref for 1,000 < value <= 10,000
 				},
 				transforms: [
 				  {	type: 'filter',
@@ -285,7 +285,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: unpack(rows, 'Confirmed'),
 					sizemode: "area",
-					sizeref: 1 // size ref for 100 < value <= 1,000
+					sizeref: 3 // size ref for 100 < value <= 1,000
 				},
 				transforms: [
 				  {	type: 'filter',
@@ -298,7 +298,6 @@ function makePlot(err, rows, strdate)
 					operation: '>',
 					value: 100
 				  }
-
 				]
 			};
 
@@ -327,7 +326,7 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: unpack(rows, 'Confirmed'),
 					sizemode: "area",
-					sizeref: 0.6// size ref for 0 <= value <= 100
+					sizeref: 1.0// size ref for 0 <= value <= 100
 				},
 				transforms: [
 				  {	type: 'filter',
