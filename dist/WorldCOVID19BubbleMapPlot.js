@@ -136,11 +136,12 @@ function makePlot(err, rows, strdate)
 				  }
 				]
 			};
+			
 
-		//trace1: 10,000 < Confirmed Cases <= 100,000
-		var trace1 = 
+		//trace0_1: 50,000 < Confirmed Cases <= 100,000
+		var trace0_1 = 
 			{
-				name: '10,000 < Confirmed <= 100,000',
+				name: '50,000 < Confirmed <= 100,000',
 				type: "scattergeo",
 				mode: 'markers',
 				hoverinfo: 'text',
@@ -151,7 +152,7 @@ function makePlot(err, rows, strdate)
 				//marker: { color: "fuchsia", size: 4 },
 				marker: {
 					//color: "fuchsia",
-					color: "rgb(90, 0, 0)",
+					color: "rgb(70, 0, 0)",
 /* 					colorscale: scl1,
 					cmin: 10000,
 					color: unpack(rows, 'Cases'),
@@ -162,13 +163,54 @@ function makePlot(err, rows, strdate)
 					autocolorscale: false,
 					size: cityCases,
 					sizemode: "area",
-					sizeref: 10 // size ref for value > 10,000
+					sizeref: 15 // size ref for 50,000 < value <= 100,000
 				},
 				transforms: [
 				  {	type: 'filter',
 					target: cityCases,
 					operation: '<=',
 					value: 100000
+				  },
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 50000
+				  }
+				]
+			};			
+
+		//trace1: 10,000 < Confirmed Cases <= 50,000
+		var trace1 = 
+			{
+				name: '10,000 < Confirmed <= 50,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(120, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 10 // size ref for 10,000 < value <= 50,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '<=',
+					value: 50000
 				  },
 				  {	type: 'filter',
 					target: cityCases,
@@ -350,6 +392,7 @@ function makePlot(err, rows, strdate)
 		  hovermode: 'closest',
 		  height: 610,
 		  
+		  
 		  updatemenus: [
 			{
 				//An update button to update the geo: scope
@@ -414,7 +457,7 @@ function makePlot(err, rows, strdate)
 		
 		var config = {responsive: true, displayModeBar: false}; //hide the plotly menubar
 		
-		var data = [trace0, trace1, trace2, trace3, trace4];
+		var data = [trace0, trace0_1, trace1, trace2, trace3, trace4];
 		
 		Plotly.newPlot("myDiv", data, layout, config);
 		
