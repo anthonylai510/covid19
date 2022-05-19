@@ -100,9 +100,153 @@ function makePlot(err, rows, strdate)
 				currentText = cityName[i] + ", " + countryName[i] + "<br>Confirmed: " + cityCases[i] + "<br>Deaths: " + cityDeaths[i] + "<br>Recovered: " + cityRecovered[i] + "<br>Active: " + cityActive;
 			hoverText.push(currentText);
 		}
+	
+		//trace1: Confirmed Cases > 50,000,000
+		var trace0_3 = 
+			{
+				name: 'Confirmed > 50,000,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(40, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 40 // size ref for value > 100,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 500000000
+				  }
+				]
+			};		
+	
+		//trace1: Confirmed Cases > 10,000,000
+		var trace0_2 = 
+			{
+				name: 'Confirmed > 10,000,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(40, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 40 // size ref for value > 100,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 10000000
+				  }
+				]
+			};		
+	
+		//trace1: Confirmed Cases > 5,000,000
+		var trace0_1 = 
+			{
+				name: 'Confirmed > 5,000,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(40, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 40 // size ref for value > 100,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 5000000
+				  }
+				]
+			};	
+	
+		//trace1: Confirmed Cases > 1,000,000
+		var trace0_0 = 
+			{
+				name: 'Confirmed > 1,000,000',
+				type: "scattergeo",
+				mode: 'markers',
+				hoverinfo: 'text',
+				text: hoverText,
+				lon: cityLon,
+				lat: cityLat,
+				
+				//marker: { color: "fuchsia", size: 4 },
+				marker: {
+					//color: "fuchsia",
+					color: "rgb(40, 0, 0)",
+/* 					colorscale: scl1,
+					cmin: 10000,
+					color: unpack(rows, 'Cases'),
+					colorbar: {
+						title: 'COVID-19 Confirmed Cases'
+					}, */
+					opacity: 0.8,
+					autocolorscale: false,
+					size: cityCases,
+					sizemode: "area",
+					sizeref: 40 // size ref for value > 100,000
+				},
+				transforms: [
+				  {	type: 'filter',
+					target: cityCases,
+					operation: '>',
+					value: 1000000
+				  }
+				]
+			};	
 
 		//trace1: Confirmed Cases > 100,000
-		var trace0 = 
+		var trace1_3 = 
 			{
 				name: 'Confirmed > 100,000',
 				type: "scattergeo",
@@ -139,7 +283,7 @@ function makePlot(err, rows, strdate)
 			
 
 		//trace0_1: 50,000 < Confirmed Cases <= 100,000
-		var trace0_1 = 
+		var trace1_2 = 
 			{
 				name: '50,000 < Confirmed <= 100,000',
 				type: "scattergeo",
@@ -180,7 +324,7 @@ function makePlot(err, rows, strdate)
 			};			
 
 		//trace1: 10,000 < Confirmed Cases <= 50,000
-		var trace1 = 
+		var trace1_1 = 
 			{
 				name: '10,000 < Confirmed <= 50,000',
 				type: "scattergeo",
@@ -221,7 +365,7 @@ function makePlot(err, rows, strdate)
 			};
 
 		//trace2: 1,000 < Confirmed Cases <= 10,000
-		var trace2 = 
+		var trace1_0 = 
 			{
 				name: '1,000 < Confirmed <= 10,000',
 				type: "scattergeo",
@@ -262,7 +406,7 @@ function makePlot(err, rows, strdate)
 			};
 
 		//trace3: 100 < Confirmed Cases <= 1,000
-		var trace3 = 
+		var trace2_3 = 
 			{
 				name: '100 < Confirmed <= 1,000',
 				type: "scattergeo",
@@ -302,7 +446,7 @@ function makePlot(err, rows, strdate)
 			};
 
 		//trace4: 1 <= Confirmed Cases <= 100
-		var trace4 = 
+		var trace2_2 = 
 			{
 				name: '1 < Confirmed <= 100',
 				type: "scattergeo",
@@ -456,7 +600,7 @@ function makePlot(err, rows, strdate)
 		
 		var config = {responsive: true, displayModeBar: false}; //hide the plotly menubar
 		
-		var data = [trace0, trace0_1, trace1, trace2, trace3, trace4];
+		var data = [trace0_3, trace0_2, trace0_1, trace0_0, trace1_3, trace1_2, trace1_1, trace1_0, trace2_3, trace2_2];
 		
 		Plotly.newPlot("myDiv", data, layout, config);
 		
